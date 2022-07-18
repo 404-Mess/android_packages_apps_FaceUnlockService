@@ -35,14 +35,15 @@ public class CameraUtil {
             String cameraId;
             int cameraOrientation;
             CameraCharacteristics characteristics;
-            for (int i = 0; i < cameraManager.getCameraIdList().length; i++) {
-                cameraId = cameraManager.getCameraIdList()[i];
-                characteristics = cameraManager.getCameraCharacteristics(cameraId);
-                cameraOrientation = characteristics.get(CameraCharacteristics.LENS_FACING);
-                if (cameraOrientation == CameraCharacteristics.LENS_FACING_FRONT) {
-                    return Integer.parseInt(cameraId);
+            if (cameraManager.getCameraIdList().length != 0) {
+                for (int i = 0; i < cameraManager.getCameraIdList().length; i++) {
+                    cameraId = cameraManager.getCameraIdList()[i];
+                    characteristics = cameraManager.getCameraCharacteristics(cameraId);
+                    cameraOrientation = characteristics.get(CameraCharacteristics.LENS_FACING);
+                    if (cameraOrientation == CameraCharacteristics.LENS_FACING_FRONT) {
+                        return Integer.parseInt(cameraId);
+                    }
                 }
-
             }
         } catch (CameraAccessException e) {
             e.printStackTrace();
